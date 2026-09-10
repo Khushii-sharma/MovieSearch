@@ -91,6 +91,7 @@
                             <img src="${movie.Poster !== "N/A" ? movie.Poster : 'https://via.placeholder.com/200x300?text=No+Image'}" alt="${movie.Title}">
                             <h3 style="color: red;">${movie.Title}</h3>
                             <p><i>Year: ${movie.Year}</i></p>
+                            <p><i>IMDb: ${movie.imdbRating}/10</i></p>
                         `;
 
                         movieList.appendChild(li);
