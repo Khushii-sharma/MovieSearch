@@ -83,7 +83,12 @@
                 movieList.innerHTML = "";
 
                 if (data.Response === "True") {
-                    data.Search.forEach(movie => {
+                    for (const movie of data.Search) {
+                        const detailsUrl = `https://www.omdbapi.com/?apikey=${apiKey}&i=${movie.imdbID}`;
+
+                        const detailsResponse = await fetch(detailsUrl);
+                        const details = await detailsResponse.json();
+
                         const li = document.createElement("li");
                         li.classList.add("movie-card");
 
@@ -91,11 +96,11 @@
                             <img src="${movie.Poster !== "N/A" ? movie.Poster : 'https://via.placeholder.com/200x300?text=No+Image'}" alt="${movie.Title}">
                             <h3 style="color: red;">${movie.Title}</h3>
                             <p><i>Year: ${movie.Year}</i></p>
-                            <p><i>IMDb: ${movie.imdbRating}/10</i></p>
+                            <p><i>IMDb: ${details.imdbRating}/10</i></p>
                         `;
 
                         movieList.appendChild(li);
-                    });
+                    };
                 } else {
                     movieList.innerHTML = `<li>No movies found for "${searchTerm}"`;
                 }
